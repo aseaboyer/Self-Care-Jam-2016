@@ -1,0 +1,175 @@
+fileFormatVersion: 2
+guid: b4927f01a3890dd46865145c596fbc28
+timeCreated: 1480376390
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: char leg 1
+    21300002: char head
+    21300004: char leg bent
+    21300006: char torso
+    21300008: char leg 2
+    21300010: char skirt
+    21300012: char example
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 128
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: char leg 1
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 804
+        width: 24
+        height: 142
+      alignment: 2
+      pivot: {x: 0.5, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: char head
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 837
+        width: 101
+        height: 68
+      alignment: 9
+      pivot: {x: 0.6924387, y: 0.02728451}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -53.93631, y: 66.14465}
+        - {x: -69.93631, y: 51.144653}
+        - {x: -69.93631, y: 28.144653}
+        - {x: -44.93631, y: -1.8553467}
+        - {x: 31.06369, y: -1.8553467}
+        - {x: 31.06369, y: 55.144653}
+        - {x: 17.06369, y: 66.14465}
+    - name: char leg bent
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 581
+        width: 48
+        height: 131
+      alignment: 9
+      pivot: {x: 0.34426007, y: 0.9736393}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -16.524483, y: 3.453247}
+        - {x: -16.524483, y: -127.54675}
+        - {x: 2.4755173, y: -127.54675}
+        - {x: 31.475517, y: -94.54675}
+        - {x: 31.475517, y: -37.546753}
+        - {x: 10.475517, y: 3.453247}
+    - name: char torso
+      rect:
+        serializedVersion: 2
+        x: 322
+        y: 648
+        width: 55
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -27.5, y: 36.5}
+        - {x: -27.5, y: -36.5}
+        - {x: 25.5, y: -36.5}
+        - {x: 27.5, y: -33.5}
+        - {x: 27.5, y: 28.5}
+        - {x: 9.5, y: 36.5}
+    - name: char leg 2
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 381
+        width: 24
+        height: 142
+      alignment: 9
+      pivot: {x: 0.53114766, y: 0.9738}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: char skirt
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 483
+        width: 92
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -46, y: -31.5}
+        - {x: -23, y: -43.5}
+        - {x: 46, y: -43.5}
+        - {x: 46, y: -0.5}
+        - {x: 39, y: 43.5}
+        - {x: -14, y: 43.5}
+        - {x: -46, y: -16.5}
+    - name: char example
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 0
+        width: 56
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23, y: 76.5}
+        - {x: -28, y: 73.5}
+        - {x: -28, y: 0.5}
+        - {x: -18, y: -64.5}
+        - {x: -3, y: -76.5}
+        - {x: 28, y: -76.5}
+        - {x: 28, y: 71.5}
+        - {x: 23, y: 76.5}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
