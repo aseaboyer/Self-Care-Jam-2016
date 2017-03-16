@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour {
 	private bool canJump = true;
 	public float jumpDelay = 0.15f;
 	public float airborneOffset = 1f;
+	public List<GameObject> feet;
+	public bool onGround;
 
 	// Use this for initialization
 	void Start () {
@@ -59,6 +61,8 @@ public class PlayerController : MonoBehaviour {
 		bool isWalking = false;
 		bool isGrounded = this.isGrounded ();
 
+		this.groundCheck ();
+
 		if (Input.GetButton ("Horizontal")) {
 			float movingSpeed = Input.GetAxisRaw ("Horizontal") * movementSpeed;
 			this.walk (movingSpeed);
@@ -93,10 +97,23 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
+	public void groundCheck () {
+		bool onGround = false;
+		foreach (GameObject foot in this.feet) {
+			RaycastHit2D hitFoot = Physics2D.Raycast (foot.transform.position, Vector2.down,
+				1000, LayerMask.GetMask ("Environment"));
+			if (hitFoot.distance < this.airborneOffset) {
+				onGround = true;
+			}
+		}
+		this.onGround = onGround;
+	}
+
 	bool isGrounded () {
-		RaycastHit2D hit = Physics2D.Raycast (transform.position, Vector2.down,
+		/*RaycastHit2D hit = Physics2D.Raycast (transform.position, Vector2.down,
 			1000, LayerMask.GetMask ("Environment"));
-		return (hit.distance < this.airborneOffset);
+		return (hit.distance < this.airborneOffset);*/
+		return this.onGround;
 	}
 
 	private void injurePlayer () {

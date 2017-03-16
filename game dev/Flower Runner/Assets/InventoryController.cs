@@ -16,6 +16,7 @@ public class InventoryController : MonoBehaviour {
 
 	public Vector2 visualInventoryTargetOffset;
 	public float visualInventorySpeed = 1f;
+	public float visualInventorySpeedMod = 0.01f;
 
 	public Vector2 thrownForce;
 	public GameObject flowerProjectile;
@@ -32,9 +33,7 @@ public class InventoryController : MonoBehaviour {
 	void Update () {
 		
 		if (Input.GetButtonDown ("Fire1") || Input.GetButtonDown ("Fire2")) {
-			if (this.pc.canThrow) {
-				this.throwFlower ();
-			}
+			this.throwFlower ();
 		}
 
 		if (this.visualInventory.Count > 0) {
@@ -69,7 +68,7 @@ public class InventoryController : MonoBehaviour {
 	}
 
 	public void throwFlower () {
-		if (this.inventory.Count > 0 && this.flowerProjectile) {
+		if (this.inventory.Count > 0 && this.flowerProjectile && this.pc.canThrow) {
 			Flower thrownFlower = this.inventory [0];
 			GameObject newFlower = GameObject.Instantiate (this.flowerProjectile);
 			Vector2 force = this.thrownForce;
@@ -96,14 +95,16 @@ public class InventoryController : MonoBehaviour {
 
 
 	public void removeFlower () { // override that assumes last item
+		//Debug.Log (this.inventory [this.inventory.Count - 1]);
 		this.removeFlower ( this.inventory [this.inventory.Count - 1]);
 	}
 	public void removeFlower (Flower f) {
 		int fIndex = this.inventory.IndexOf (f);
+		GameObject flowerObj = this.visualInventory [fIndex];
 		//GameObject removedItem = this.visualInventory.RemoveAt (fIndex);
-		Destroy (this.visualInventory[fIndex]);
-
 		this.inventory.Remove (f);
+		this.visualInventory.Remove (flowerObj);
+		Destroy (flowerObj);
 		this.updateInventory (this.inventory);
 	}
 
@@ -124,20 +125,22 @@ public class InventoryController : MonoBehaviour {
 	}
 
 	void updateVisualInventory () {
-
 		Vector2 previousPos = (Vector2)this.transform.position + 
 			this.visualInventoryTargetOffset + -this.pc.facingDirection ();
 
 		for (int i = 0; i < this.visualInventory.Count; i++) {
 			Vector2 currentPos = this.visualInventory [i].transform.position;
-			float speedMod = (visualInventorySpeed * Time.deltaTime);
+			float speed = (this.visualInventorySpeed * Time.deltaTime);
+			float speedMod = (i * this.visualInventorySpeedMod) * speed;
+			speed -= speedMod;
+			Debug.Log (speedMod);
 			// Needs to have a nice accordian effect in the end
 			// multiply by (0.1 * i)
 			// or, instead of a fixed var, use above and * player velocity
 
 			//this.visualInventory [i].transform.position = firstPosition;
 			this.visualInventory [i].transform.position = Vector2.MoveTowards (
-				currentPos, previousPos, speedMod);
+				currentPos, previousPos, speed);
 			previousPos = currentPos; // point next at this's last pos
 		}
 	}
