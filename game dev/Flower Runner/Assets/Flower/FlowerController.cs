@@ -25,7 +25,7 @@ public class FlowerController : MonoBehaviour {
 		
 	}
 
-	void OnTriggerEnter2D (Collider2D other) {
+	void OnTriggerStay2D (Collider2D other) {
 		if (this.bloomed) {
 			if (other.tag == "Player") {
 				bool playerPicksFlower = other.GetComponent <InventoryController> ().offerFlower (this.flower);

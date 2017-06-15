@@ -6,9 +6,10 @@ public class PlayerController : MonoBehaviour {
 	
 	public float movementSpeed = 1f;
 	public Vector2 jumpBaseForce;
+	public Vector2 doubleJumpBaseForce;
 	public bool facingRight;
 
-	private Animator playerAnimator;
+	public Animator playerAnimator;
 	private Rigidbody2D rbody;
 	private GameController gc;
 
@@ -21,7 +22,8 @@ public class PlayerController : MonoBehaviour {
 	public bool canThrow = false;
 	public InventoryController inventory;
 
-	private bool canJump = true;
+	public bool canJump = true;
+	public bool canDoubleJump = false;
 	public float jumpDelay = 0.15f;
 	public float airborneOffset = 1f;
 	public List<GameObject> feet;
@@ -46,8 +48,8 @@ public class PlayerController : MonoBehaviour {
 		this.gc.updateHealth (this.maxHealth);
 		this.canBeInjured = true;
 
-		this.canJump = true;
-		this.canThrow = true;
+		//this.canJump = true;
+		//this.canThrow = true;
 
 		this.facingRight = true;
 
@@ -91,9 +93,21 @@ public class PlayerController : MonoBehaviour {
 	void OnCollisionEnter2D (Collision2D other) {
 		if (other.gameObject.tag == "Death Zone") {
 			gc.restartScene ("Watch your step and try to land on those platforms!");
-		
+
 		} else if (other.gameObject.tag == "Basic Enemy") {
-			this.injurePlayer ();
+			//this.injurePlayer ();
+
+			bool otherStunned = other.gameObject.GetComponent <EnemyHealthController> ().isStunned;
+			if (otherStunned == false) {
+				this.injurePlayer ();
+			}
+
+		}
+	}
+
+	void OnTriggerEnter2D (Collider2D other) {
+		if (other.gameObject.tag == "Ending Flag") {
+			gc.completeScene ();
 		}
 	}
 
@@ -138,8 +152,17 @@ public class PlayerController : MonoBehaviour {
 
 	private void applyJump () {
 		Vector2 force = Vector2.zero;
-		force.x = (Input.GetAxisRaw ("Horizontal") * this.jumpBaseForce.x);
-		force.y = this.jumpBaseForce.y;
+		if (this.onGround) {
+			force.x = (Input.GetAxisRaw ("Horizontal") * this.jumpBaseForce.x);
+			force.y = this.jumpBaseForce.y;
+		} else {
+			force.x = (Input.GetAxisRaw ("Horizontal") * this.doubleJumpBaseForce.x);
+			force.y = this.doubleJumpBaseForce.y;
+		}
+
+		Vector2 tempVelocity = this.rbody.velocity;
+		tempVelocity.y = 0;
+		this.rbody.velocity = tempVelocity;
 		this.rbody.AddForce (force, ForceMode2D.Impulse);
 
 		this.canJump = false;
@@ -158,14 +181,16 @@ public class PlayerController : MonoBehaviour {
 		} else {
 			//Debug.Log ("In air. Inventory: " + this.inventory.Count);
 
-			if (this.inventory.canBonusJump ()) {
-				//Debug.Log ("Can double Jump!");
-				this.applyJump ();
+			if (this.canDoubleJump) {
+				if (this.inventory.canBonusJump ()) {
+					//Debug.Log ("Can double Jump!");
+					this.applyJump ();
 
-				this.inventory.removeFlower ();
+					this.inventory.removeFlower ();
 
-				if (this.gc) {
-					gc.spawnFlowerParticles (this.transform.position);
+					if (this.gc) {
+						gc.spawnFlowerParticles (this.transform.position);
+					}
 				}
 			}
 		}

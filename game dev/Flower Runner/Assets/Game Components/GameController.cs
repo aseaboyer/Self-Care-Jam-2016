@@ -12,6 +12,8 @@ public class GameController : MonoBehaviour {
 	public float restartDelay = 3f;
 	public GameObject restartWindow;
 	public GameObject restartWindowText;
+	public GameObject nextLevelWindow;
+	public string nextLevelName;
 	public GameObject helpModal;
 	public GameObject helpModalText;
 
@@ -20,6 +22,7 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		this.restartWindow.SetActive (false);
+		this.nextLevelWindow.SetActive (false);
 		this.clearModal ();
 	}
 	
@@ -81,6 +84,12 @@ public class GameController : MonoBehaviour {
 		Canvas.ForceUpdateCanvases ();
 	}
 
+	public void completeScene () {
+		this.nextLevelWindow.SetActive (true);
+
+		Invoke ("loadNextLevel", this.restartDelay);
+	}
+
 	public void restartScene (string reason) {
 		Text textObj = this.restartWindowText.GetComponent<Text> ();
 		if (textObj) {
@@ -93,5 +102,9 @@ public class GameController : MonoBehaviour {
 
 	public void loadSceneThis () {
 		SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+	}
+
+	public void loadNextLevel () {
+		SceneManager.LoadScene (this.nextLevelName);
 	}
 }
