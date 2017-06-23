@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour {
 	public List<GameObject> feet;
 	public bool onGround;
 
+	private SoundController soundController;
+
 	// Use this for initialization
 	void Start () {
 		/*
@@ -56,6 +58,8 @@ public class PlayerController : MonoBehaviour {
 		this.playerAnimator = GetComponent<Animator> ();
 
 		this.inventory = GetComponent<InventoryController> ();
+
+		this.soundController = GetComponent<SoundController> ();
 	}
 	
 	// Update is called once per frame
@@ -120,6 +124,12 @@ public class PlayerController : MonoBehaviour {
 				onGround = true;
 			}
 		}
+
+		if (!this.onGround && onGround) {
+			// Just landed, play sound
+			this.soundController.playSound ("landed");
+		}
+
 		this.onGround = onGround;
 	}
 
@@ -137,6 +147,9 @@ public class PlayerController : MonoBehaviour {
 
 			this.currentHealth--;
 			gc.updateHealth (this.currentHealth);
+
+			this.soundController.playSound ("hurt");
+
 			if (this.currentHealth <= 0) {
 				gc.restartScene ("Be careful around the locals, they can be nasty!");
 			} else {
@@ -164,6 +177,9 @@ public class PlayerController : MonoBehaviour {
 		tempVelocity.y = 0;
 		this.rbody.velocity = tempVelocity;
 		this.rbody.AddForce (force, ForceMode2D.Impulse);
+
+		// Play the jump sound
+		this.soundController.playSound ("jump");
 
 		this.canJump = false;
 		Invoke ("enableJump", this.jumpDelay);
